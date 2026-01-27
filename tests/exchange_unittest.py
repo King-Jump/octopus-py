@@ -3,17 +3,15 @@ import os
 import sys
 import time
 
-PKG_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-if PKG_DIR not in sys.path:
-    sys.path.insert(0, PKG_DIR)
+# PKG_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# if PKG_DIR not in sys.path:
+#     sys.path.insert(0, PKG_DIR)
 
 SYMBOL = "BTC_USDT"
 INTERMEDIATE_RESULT = {}
 
-from exchange.base_restapi import BaseClient
-
-from exchange.base_restapi import (
-    NewOrder, OrderID, OrderStatus, Ticker, 
+from octopus import (
+    BaseClient, NewOrder, OrderID, OrderStatus, Ticker, 
     AskBid, ORDER_STATE_CONSTANTS as order_state
 )
 
