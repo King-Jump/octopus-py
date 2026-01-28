@@ -7,10 +7,10 @@ PKG_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if PKG_DIR not in sys.path:
     sys.path.insert(0, PKG_DIR)
 
-from octopus.utils.log_util import create_logger
+from octopuspy.utils.log_util import create_logger
 LOGGER = create_logger(".", "exchange_unittest.log", "exchange_unittest", 10)
 
-from octopus import ClientParams, OkxSpotClient
+from octopuspy import ClientParams, OkxSpotClient
 
 from tests.exchange_unittest import ExchangeTest
 
@@ -28,7 +28,7 @@ class OkxUnitTest(ExchangeTest):
         res = self.client.balance()
         print("account balance %s", res)
         self.assertTrueWithColor(res["code"] == "0" and res["data"], "账户余额查询成功")
-        
+
 if __name__ == "__main__":
     suit = unittest.TestSuite()
     suit.addTest(unittest.makeSuite(OkxUnitTest))

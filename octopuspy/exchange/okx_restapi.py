@@ -12,7 +12,7 @@ PROJ_DIR = os.path.abspath(os.path.abspath(os.path.abspath(__file__)))
 if PROJ_DIR not in sys.path:
     sys.path.insert(0, PROJ_DIR)
     
-from octopus.exchange.base_restapi import (
+from octopuspy.exchange.base_restapi import (
     BaseClient, ClientParams, NewOrder, OrderID, Ticker, AskBid,
     OrderStatus, ORDER_STATE_CONSTANTS as order_state
 )
@@ -188,7 +188,7 @@ class OkxSpotClient(BaseClient):
                 self.logger.error("%s/%s order succeeded: okx make order return: %s", 
                                   sub_success, len(sub_orders), okx_res)
         return am_res
-            
+
     def open_orders(self, symbol: str) -> list[OrderStatus]:
         """ List open orders
         OKX parameter:
@@ -251,7 +251,7 @@ class OkxSpotClient(BaseClient):
             ) for item in okx_res["data"]]
         self.logger.error("[%s] open orders error!: %s", symbol, okx_res)
         return []
-       
+
     def batch_cancel(self, order_ids: list[str], symbol: str) -> list[OrderID]:
         """ batch cancel orders
         Okx parameters:
@@ -301,7 +301,7 @@ class OkxSpotClient(BaseClient):
                     self.logger.error("[%s] batch_cancel error! return: %s", symbol, okx_res)            
                     self.logger.error("%s / %s orders canceled", cancel_success, len(sub_list))
         return am_res
-        
+
     def cancel_order(self, order_id: str, symbol: str = '') -> OrderID:
         """ cancel single order
         Okx params:
@@ -345,7 +345,7 @@ class OkxSpotClient(BaseClient):
         'rebate': '0', 'rebateCcy': 'USDT', 'reduceOnly': 'false', 'side': 'buy', 'slOrdPx': '', 'slTriggerPx': '', 
         'slTriggerPxType': '', 'source': '', 'state': 'live', 'stpId': '', 'stpMode': 'cancel_maker', 'sz': '0.00005', 
         'tag': '', 'tdMode': 'cash', 'tgtCcy': '', 'tpOrdPx': '', 'tpTriggerPx': '', 'tpTriggerPxType': '', 'tradeId': '', 
-        'tradeQuoteCcy': 'USDT', 'uTime': '1766406724251'}], 'msg': ''}        
+        'tradeQuoteCcy': 'USDT', 'uTime': '1766406724251'}], 'msg': ''}
         """
         okx_res = self.trade_api.get_order(self._norm_symbol(symbol), order_id)
         if okx_res["code"] == "0" and okx_res.get("data"):

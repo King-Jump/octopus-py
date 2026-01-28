@@ -10,7 +10,7 @@ import time
 SYMBOL = "BTC_USDT"
 INTERMEDIATE_RESULT = {}
 
-from octopus import (
+from octopuspy import (
     BaseClient, NewOrder, OrderID, OrderStatus, Ticker, 
     AskBid, ORDER_STATE_CONSTANTS as order_state
 )
