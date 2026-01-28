@@ -162,6 +162,7 @@ venv.bak/
 setup/
 unittest/*local.*
 test_env.*
+log/
 
 # Spyder project settings
 .spyderproject

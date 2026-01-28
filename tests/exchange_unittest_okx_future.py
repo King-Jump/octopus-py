@@ -28,10 +28,10 @@ class OkxFutureUnitTest(ExchangeTest):
         print("### test_00_account_balance ###")
         res = self.client.balance()
         print("account balance %s" % res)
-        self.assertTrueWithColor(res["code"] == "0" and res["data"], "账户余额查询成功")
+        self.assertTrueWithColor(res["code"] == "0" and res["data"], "Account balance inquiry successful")
         res = self.client.get_positions()
         print("account positions %s" % res)
-        self.assertTrueWithColor(res["code"] == "0" and res["data"], "账户仓位查询成功")
+        self.assertTrueWithColor(res["code"] == "0" and res["data"], "Account position inquiry successful")
         res = self.client.instrument_info(self.symbol)
         print("contract info %s" % res)
        
@@ -39,7 +39,7 @@ class OkxFutureUnitTest(ExchangeTest):
         print("### test_08_account_positions ###")
         res = self.client.get_positions()
         print("account positions %s" % res)
-        self.assertTrueWithColor(res["code"] == "0" and not res["data"], "账户持仓为空")
+        self.assertTrueWithColor(res["code"] == "0" and not res["data"], "Account position is empty")
         
 if __name__ == "__main__":
     suit = unittest.TestSuite()

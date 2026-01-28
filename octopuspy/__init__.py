@@ -5,7 +5,10 @@ from .exchange.base_restapi import (
 
 from .exchange.okx_restapi import OkxSpotClient 
 from .exchange.okx_future_restapi import OkxFutureClient
+from .exchange.binance_restapi import BnSpotClient
+from .exchange.binance_future_restapi import BnFutureClient
 
 __all__ = ['BaseClient', 'ClientParams', 'AskBid', 'ORDER_STATE_CONSTANTS', 
            'NewOrder', 'OrderID', 'OrderStatus', 'Ticker', 
-           'OkxSpotClient', 'OkxFutureClient']
+           'OkxSpotClient', 'OkxFutureClient',
+           'BnSpotClient', 'BnFutureClient']

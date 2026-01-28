@@ -1,0 +1,10 @@
+redis
+supervisor
+requests
+python-okx
+binance-common
+binance-connector
+binance-sdk-spot
+pydantic
+binance-futures-connector
+okx
