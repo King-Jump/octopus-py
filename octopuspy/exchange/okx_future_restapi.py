@@ -97,7 +97,7 @@ class OkxFutureClient(OkxSpotClient):
                 "posSide": "net",  # Buy/Sell mode
             }
             okx_orders.append(okx_order)
-            print("okx_orders: %s" % okx_orders)
+            self.logger.debug("okx_orders: %s", okx_orders)
 
         am_res = []
         for i in range(0, len(okx_orders), BATCH_SIZE):
@@ -184,9 +184,3 @@ class OkxFutureClient(OkxSpotClient):
                                 lot_size=res["data"][0].get("lotSz"),
                                 tick_size=res["data"][0].get("tickSz"))
         return ContractInfo("","","1","","","1","1")
-        
-if __name__ == "__main__":
-    conf = ClientParams("https://www.okx.com","","","")
-    client = OkxFutureClient(conf, None)
-    print(client.instrument_info("BTC_USDT_SWAP"))
-    

@@ -23,7 +23,6 @@ def RDB():
     try:
         conn = _get_conn()
         if conn and conn.ping():
-            #print("using cache_conn")
             return conn
         _get_conn.cache_clear()
     except (redis.RedisError, ConnectionError):
