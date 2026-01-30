@@ -22,9 +22,7 @@ If you need a more powerful and faster system, or customized development, please
 │   │   └── ...
 │   └── utils                              # Utility classes
 │       ├── __init__.py
-│       ├── config_util.py
 │       ├── db_util.py
-│       ├── lark_bot.py
 │       └── log_util.py
 ├── tests
 │   ├── exchange_unittest.py                # Base class for spot exchange unit tests
