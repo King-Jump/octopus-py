@@ -5,7 +5,7 @@ This project is a concise and efficient quantitative trading/market making/marke
 If you need a more powerful and faster system, or customized development, please contact us.
 
 ### 1. OCTOPUS-PY CODE STRUTURE
-```
+```python
 .
 ├── docs
 │   └── README.md
@@ -44,36 +44,36 @@ Pre-requirement: python (>=3.9)
 
 #### 2.1 Linux:
 2.1.1. Clone project from github
-```
+```bash
 mkdir ~/king-jump
 cd ~/king-jump
 git clone https://github.com/King-Jump/octopus-py.git
 ```
 
 2.1.2. Create virtual environment
-```
+```bash
 cd ~/king-jump
 python3 venv -m venv
 ```
 
 2.1.3. Install dependencies
-```
+```bash
 source venv/bin/activate
 pip install -r ./octopuspy/requirements
 ```
-2.1.4. Create file named 'test_env.py' in octopuspy, edit 'BASE_URL', 'API_KEY', 'SECRET', 'PASSPHRASE'.
-```
+2.1.4. Create file named 'test_env.py' in octopus-py, edit 'BASE_URL', 'API_KEY', 'SECRET', 'PASSPHRASE'.
+```bash
 cd octopus-py
 ```
 test_env.py:
-```
+```py
 BASE_URL = 'https://api.binance.com'
 API_KEY = "Your api_key"
 SECRET = "Your api_secret"
 PASSPHRASE = "" # Do not required by Binance, but required by OKX
 ```
 Save test_env.py and run:
-```
+```bash
 Python3 tests/exchange_unittest_binance.py
 ```
 All standard market making APIs will be excuted, output like this:
@@ -89,4 +89,4 @@ Octopus-py is a Python package for developing unified market making restful clie
 2. Develop your exchange client : [**here**](./docs/EXCHANGE_CLIENT.md)  
 
 ### 4. TEST 
-1. Exchange client unit_test : [**here**](./doc/UNIT_TEST.md)
+1. Exchange client unit_test : [**here**](./docs/UNIT_TEST.md)
