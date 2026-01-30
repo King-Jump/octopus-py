@@ -7,7 +7,7 @@ The OctopusPy Test Framework is a comprehensive unit testing system designed to 
 Test output:  
 ![alt text](images/test_output.png)
 
-Where <span style="color:green">green</span> mean passed test cases, <span style="color:red">red</span> mean failed cases. Check program for bugs.
+Where <span style="color:green">green</span> means passed test cases, <span style="color:red">red</span> means failed cases. Check code for bugs.
 
 ## Class Inheritance Hierarchy
 
@@ -167,14 +167,6 @@ class OkxUnitTest(ExchangeTest):
 4. **Mock Data Support**: Graceful handling of missing real data with mock alternatives
 
 5. **Validation Depth**: Multiple assertion levels (type, value, structure) for comprehensive validation
-
-## Extension Points
-
-1. **Add Custom Tests**: Extend `ExchangeTest` with additional test methods
-2. **Custom Assertions**: Add more colored assertion methods in `ColorfulTestCase`
-3. **Configuration**: Externalize test parameters via configuration files or environment variables
-4. **Async Support**: Extend for asynchronous client implementations
-5. **Performance Metrics**: Add timing measurements for performance testing
 
 This framework provides a robust foundation for exchange client testing with visual feedback and comprehensive validation of exchange API implementations.
 
