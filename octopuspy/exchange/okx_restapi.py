@@ -29,7 +29,10 @@ OKX_TYPE_MAP = {
 
 class OkxSpotClient(BaseClient):
     def __init__(self, params: ClientParams, logger: Logger):
+        """ https://www.okx.com """
         super().__init__(params, logger)
+        if not self.base_url:
+            self.base_url = "https://www.okx.com" # default
         self.demo_trading = "0"  # live trading: 0, demo trading: 1
         self.market_data_api = MarketData.MarketAPI(api_key=self.api_key,
                                                     api_secret_key=self.secret,

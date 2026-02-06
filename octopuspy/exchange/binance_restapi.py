@@ -54,7 +54,6 @@ class BnSpotClient(BaseClient):
             logger: Logger=logging.getLogger(__file__)):
         super().__init__(params, logger=logger)
         self.spot_client = Client(api_key=params.api_key, api_secret=params.secret)
-        # self.spot_client = Client(base_url=params.base_url, api_key=params.api_key, api_secret=params.secret)
 
     def tif_map(self, order_type:str, tif:str):
         if order_type == "LIMIT_MAKER":

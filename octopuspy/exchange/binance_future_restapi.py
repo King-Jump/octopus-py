@@ -4,7 +4,7 @@ Documentation: https://developers.binance.com/docs/derivatives/portfolio-margin/
 
 BnFutureClient inheritated from BaseClient, implements stand exhange interface for BaseClient.
 In addition to some account interface for management or testing.
-All interfaces are tested with Binance Portfolio margen pro account.
+All interfaces are tested with Binance Portfolio margin pro account.
 """
 import time
 import os
@@ -65,7 +65,7 @@ BATCH_MAKE_SIZE = 5
 BATCH_CANCEL_SIZE = 10
 
 class BnFutureClient(BaseClient):
-    """ https://api.binance.com """
+    """ https://papi.binance.com """
     def __init__(
             self,
             params: ClientParams,

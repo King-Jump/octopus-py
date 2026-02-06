@@ -62,7 +62,7 @@ BATCH_MAKE_SIZE = 5
 BATCH_CANCEL_SIZE = 10
 
 class BnUMFutureClient(BaseClient):
-    """ https://api.binance.com """
+    """ https://fapi.binance.com """
     def __init__(
             self,
             params: ClientParams,
