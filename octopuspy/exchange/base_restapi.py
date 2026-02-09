@@ -1,4 +1,5 @@
 """ base class of restful API client
+Implements mock interface for test. Use it by set self.mock=True, and call super class functions.
 """
 import time
 import logging
@@ -46,21 +47,32 @@ class ORDER_STATE_CONSTANTS:
             return cls.EXPIRED
         return cls.UNKNOWN
 
+MOCK_TICKER_RETURN = {
+    "BTCUSDT": [Ticker(s='BTCUSDT', p='69987.11', q='1.00')],
+    "ETHUSDT": [Ticker(s='ETHUSDT', p='2050.00', q='1.00')]
+}
+
+MOCK_ASKBID_RETURN = {
+    "BTCUSDT": [AskBid(ap='69987.11', aq='1.01', bp='69986.11', bq='0.99')],
+    "ETHUSDT": [AskBid(ap='2050.00', aq='1.01', bp='2049.00', bq='0.99')]
+}
 
 class BaseClient:
     """ Base Client
     """
-    __slots__ = ('base_url', 'api_key', 'secret', 'passphrase', 'logger')
+    __slots__ = ('base_url', 'api_key', 'secret', 'passphrase', 'logger', 'mock')
     def __init__(
         self,
         params: ClientParams,
-        logger: Logger = logging.getLogger(__file__)
+        logger: Logger = logging.getLogger(__file__),
+        mock: bool = False  # mock response for test
     ):
         self.base_url = params.base_url
         self.api_key = params.api_key
         self.secret = params.secret
         self.passphrase = params.passphrase
         self.logger = logger
+        self.mock = mock
 
     def _timestamp(self) -> int:
         return int(1000 * time.time())
@@ -68,41 +80,81 @@ class BaseClient:
     def batch_make_orders(self, orders: list[NewOrder], symbol: str = '') -> list[OrderID]:
         """ Make batch orders
         """
-        raise NotImplementedError('batch_make_orders is not implemented')
+        # unified for mock test
+        if self.mock:
+            time.sleep(0.1)
+            return [OrderID(order_id="mock_order_001", client_id="mock_clorder_id_001"),
+                    OrderID(order_id="mock_order_002", client_id="mock_clorder_id_002")]
+        pass
 
     def batch_cancel(self, order_ids: list[str], symbol: str) -> list[OrderID]:
         """ batch cancel orders
         """
-        raise NotImplementedError('batch_cancel is not implemented')
+        # unified for mock test
+        if self.mock:
+            time.sleep(0.1)
+            return [OrderID(order_id="mock_order_001", client_id="mock_clorder_id_001"),
+                    OrderID(order_id="mock_order_002", client_id="mock_clorder_id_002")]
+        pass
 
     def open_orders(self, symbol: str) -> list[OrderStatus]:
         """ List open orders
         """
-        raise NotImplementedError('open_orders is not implemented')
+        # unified for mock test
+        if self.mock:
+            time.sleep(0.1)
+            return [OrderStatus(order_id="mock_order_001", client_id="mock_clorder_id_001",side='BUY',
+                                price=1.0, state=ORDER_STATE_CONSTANTS.NEW, origQty=1.0),
+                    OrderStatus(order_id="mock_order_001", client_id="mock_clorder_id_001",side='SELL',
+                                price=1.0, state=ORDER_STATE_CONSTANTS.NEW, origQty=1.0),]
+        pass
 
     def ticker(self, symbol: str) -> list[Ticker]:
         """ get ticker
         """
-        raise NotImplementedError('ticker is not implemented')
+        # unified for mock test
+        if self.mock:
+            time.sleep(0.1)
+            return MOCK_TICKER_RETURN[symbol.upper()]
+        pass
 
     def top_askbid(self, symbol: str) -> list[AskBid]:
         """ get best ask and bid
         """
-        raise NotImplementedError('top_askbid is not implemented')
+        # unified for mock test
+        if self.mock:
+            time.sleep(0.1)
+            return MOCK_ASKBID_RETURN[symbol.upper()]
+        pass
 
     def self_trade(
         self, symbol: str, side: str, price: str, qty: str, amt: str = ''
     ) -> list[OrderID]:
         """ self trade by mock
         """
-        raise NotImplementedError('self_trade is not implemented')
+        # unified for mock test
+        if self.mock:
+            time.sleep(0.1)
+            return [OrderID(order_id="mock_order_001", client_id="mock_clorder_id_001"),
+                    OrderID(order_id="mock_order_002", client_id="mock_clorder_id_002")]
+        pass
 
     def cancel_order(self, order_id: str, symbol: str = '') -> OrderID:
         """ cancel single order
         """
-        raise NotImplementedError('cancel_order is not implemented')
+        if self.mock:
+            time.sleep(0.1)
+            return OrderID(order_id="mock_order_001", client_id="mock_clorder_id_001")
+        pass
 
     def order_status(self, order_id: str, symbol: str = '') -> list[OrderStatus]:
         """ get order status
         """
-        raise NotImplementedError('order_status is not implemented')
+        # unified for mock test
+        if self.mock:
+            time.sleep(0.1)
+            return [OrderStatus(order_id="mock_order_001", client_id="mock_clorder_id_001",side='BUY',
+                                price=1.0, state=ORDER_STATE_CONSTANTS.NEW, origQty=1.0),
+                    OrderStatus(order_id="mock_order_001", client_id="mock_clorder_id_001",side='SELL',
+                                price=1.0, state=ORDER_STATE_CONSTANTS.NEW, origQty=1.0),]
+        pass

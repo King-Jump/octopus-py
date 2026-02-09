@@ -6,7 +6,7 @@ import requests
 from logging import Logger
 
 from binance.spot import Spot as Client
-from .base_restapi import (
+from ..base_restapi import (
     AskBid, BaseClient, ClientParams, NewOrder, OrderID, OrderStatus, Ticker, ORDER_STATE_CONSTANTS
 )
 
@@ -96,6 +96,8 @@ class BnSpotClient(BaseClient):
                 'askQty': '9.61974000'
             }
         """
+        if self.mock:
+            return super().top_askbid(symbol)  # call mock function if self.mock
         try:
             res = self.spot_client.book_ticker(symbol=symbol)
             return [AskBid(ap=res['askPrice'],
@@ -115,6 +117,8 @@ class BnSpotClient(BaseClient):
             'price': '117951.21000000'
         }
         """
+        if self.mock:
+            return super().ticker(symbol)  # call mock function if self.mock
         try:
             res = self.spot_client.ticker_price(symbol)
             return [Ticker(s=res['symbol'], p=res['price'], q="0")]
@@ -140,6 +144,8 @@ class BnSpotClient(BaseClient):
                 }
             ]
         """
+        if self.mock:
+            return super().open_orders(symbol)  # call mock function if self.mock
         try:
             res = self.spot_client.get_open_orders(symbol)
             _total_res = []
@@ -164,6 +170,8 @@ class BnSpotClient(BaseClient):
     def batch_make_orders(self, orders: list[NewOrder], symbol: str = '') -> list[OrderID]:
         """ make batch orders by single order api
         """
+        if self.mock:
+            return super().batch_make_orders(orders, symbol)  # call mock function if self.mock
         norm_symbol = self.norm_symbol(symbol)
         total_results = []
         for order in orders:
@@ -198,6 +206,8 @@ class BnSpotClient(BaseClient):
         Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.
         timestamp	LONG	YES        
         """
+        if self.mock:
+            return super().batch_cancel(order_ids, symbol)  # call mock function if self.mock
         norm_symbol = self.norm_symbol(symbol)
         total_res = []
         for id in order_ids:
@@ -210,6 +220,8 @@ class BnSpotClient(BaseClient):
         return total_res
 
     def cancel_order(self, order_id: str, symbol: str = '') -> OrderID:
+        if self.mock:
+            return super().cancel_order(order_id, symbol)  # call mock function if self.mock
         norm_symbol = self.norm_symbol(symbol)
         _params = {"orderId" : int(order_id), "timestamp" : int(time.time()*1000)}
         try:
@@ -222,6 +234,8 @@ class BnSpotClient(BaseClient):
     def order_status(self, order_id: str, symbol: str = '') -> list[OrderStatus]:
         """ order status
         """
+        if self.mock:
+            return super().order_status(order_id, symbol)  # call mock function if self.mock
         norm_symbol = self.norm_symbol(symbol)
         _params = {"orderId":int(order_id), "timestamp":int(time.time()*1000)}
         try:     
