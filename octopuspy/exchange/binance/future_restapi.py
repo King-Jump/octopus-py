@@ -21,7 +21,7 @@ PKG_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if PKG_DIR not in sys.path:
     sys.path.insert(0, PKG_DIR)
 
-from exchange.base_restapi import (
+from ..base_restapi import (
     AskBid, BaseClient, ClientParams, NewOrder, OrderID, OrderStatus, Ticker, ORDER_STATE_CONSTANTS
 )
 

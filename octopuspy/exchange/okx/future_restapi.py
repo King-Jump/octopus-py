@@ -13,8 +13,8 @@ PROJ_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if PROJ_PATH not in sys.path:
     sys.path.insert(0, PROJ_PATH)
     
-from exchange.base_restapi import AskBid, ClientParams, NewOrder, OrderID, OrderStatus, Ticker
-from exchange.okx_restapi import OkxSpotClient
+from ..base_restapi import AskBid, ClientParams, NewOrder, OrderID, OrderStatus, Ticker
+from .spot_restapi import OkxSpotClient
 
 # parameters for contract instrument
 ContractInfo = namedtuple('ContractInfo', ['symbol', 'biz_type', 'group_id', 'ct_val', 'lever', 'lot_size', 'tick_size'])

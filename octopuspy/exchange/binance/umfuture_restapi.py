@@ -18,7 +18,7 @@ if PKG_DIR not in sys.path:
     sys.path.insert(0, PKG_DIR)
 
 from binance.um_futures import UMFutures as Client
-from exchange.base_restapi import (
+from ..base_restapi import (
     AskBid, BaseClient, ClientParams, NewOrder, OrderID, OrderStatus, Ticker, ORDER_STATE_CONSTANTS
 )
 

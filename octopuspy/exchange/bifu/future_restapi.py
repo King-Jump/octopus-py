@@ -5,7 +5,7 @@ import hashlib
 import requests
 from logging import Logger
 
-from .base_restapi import ORDER_STATE_CONSTANTS, AskBid, BaseClient, NewOrder, OrderID, OrderStatus, Ticker, ClientParams
+from ..base_restapi import ORDER_STATE_CONSTANTS, AskBid, BaseClient, NewOrder, OrderID, OrderStatus, Ticker, ClientParams
 BATCH_SIZE = 20
 
 TIF_MAP = {
