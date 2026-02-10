@@ -70,6 +70,8 @@ class BifuFutureClient(BaseClient):
 
     def top_askbid(self, symbol: str) -> list[AskBid]:
         """ limit must be 15 or 200"""
+        if self.mock:
+            return super().top_askbid(symbol)   # call mock function if self.mock
         res = self.order_book(symbol, limit=15)
         try:
             top_ask = res['asks'][0]
@@ -135,6 +137,8 @@ class BifuFutureClient(BaseClient):
             'responseTime': '1764934994050', 'traceId': 'c68e1c8d66871cebee61ba8b68110009'
         }
         """
+        if self.mock:
+            return super().ticker(symbol)   # call mock function if self.mock
         path = f'/api/v1/public/quote/getTicker?instrumentId={symbol}'
         res = requests.get(url=f'{self.base_url}{path}', timeout=5).json()
         if res.get('code') == 'SUCCESS' and res.get('data'):
@@ -299,6 +303,8 @@ class BifuFutureClient(BaseClient):
                 'traceId': 'e3559b4a2b85dfdbfbaa3bd985692a2f'
             }
         """
+        if self.mock:
+            return super().open_orders(symbol)   # call mock function if self.mock
         path = '/api/v1/private/contract/order/getActiveOrderPage2'
         headers = self._sign(path=path)
         open_orders = []
@@ -338,6 +344,8 @@ class BifuFutureClient(BaseClient):
              'msg': None, 'params': None, 'requestTime': '1766324637531', 'responseTime': '1766324637535', 'traceId': 'ff680c2c4bc539cd7e9032fa9bb9ed1d'
             }                    
         """
+        if self.mock:
+            return super().batch_make_orders(orders, symbol)   # call mock function if self.mock
         path='/api/v1/private/contract/order/createOrderBatch'
         if len(orders) <= BATCH_SIZE:
             body = {
@@ -412,6 +420,8 @@ class BifuFutureClient(BaseClient):
              'traceId': '04415e18db57f049606be198e34ce678'
             }
         """
+        if self.mock:
+            return super().batch_cancel(order_ids, symbol)   # call mock function if self.mock
         path = '/api/v1/private/contract/order/cancelOrderById'
         if len(order_ids) <= BATCH_SIZE:
             body = {'orderIdList': order_ids}
@@ -450,6 +460,8 @@ class BifuFutureClient(BaseClient):
                 'responseTime': '1754579970261', 'traceId': '6aaa474859fd5f61a0a0043361475783'
             }
         """
+        if self.mock:
+            return super().cancel_order(order_id, symbol)   # call mock function if self.mock
         res = self.batch_cancel([order_id], symbol)
         if res:
             return res[0]
@@ -512,6 +524,8 @@ class BifuFutureClient(BaseClient):
             'traceId': '835e34b15e345a12107cc3ba330ba2f2'
         }
         """
+        if self.mock:
+            return super().order_status(order_id, symbol)   # call mock function if self.mock
         path = '/api/v1/private/contract/order/getOrderById'
         query = f"orderIdList={order_id}"
         headers = self._sign(path=path)

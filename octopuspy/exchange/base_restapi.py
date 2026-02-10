@@ -49,12 +49,14 @@ class ORDER_STATE_CONSTANTS:
 
 MOCK_TICKER_RETURN = {
     "BTCUSDT": [Ticker(s='BTCUSDT', p='69987.11', q='1.00')],
-    "ETHUSDT": [Ticker(s='ETHUSDT', p='2050.00', q='1.00')]
+    "ETHUSDT": [Ticker(s='ETHUSDT', p='2050.00', q='1.00')],
+    "BNBUSDT": [Ticker(s='ETHUSDT', p='629.00', q='1.00')]
 }
 
 MOCK_ASKBID_RETURN = {
     "BTCUSDT": [AskBid(ap='69987.11', aq='1.01', bp='69986.11', bq='0.99')],
-    "ETHUSDT": [AskBid(ap='2050.00', aq='1.01', bp='2049.00', bq='0.99')]
+    "ETHUSDT": [AskBid(ap='2050.00', aq='1.01', bp='2049.00', bq='0.99')],
+    "BNBUSDT": [AskBid(ap='629.00', aq='1.01', bp='628.00', bq='0.99')]
 }
 
 class BaseClient:

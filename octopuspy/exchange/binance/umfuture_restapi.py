@@ -102,6 +102,8 @@ class BnUMFutureClient(BaseClient):
                 "time": 1589437530011   // Transaction time
             }            
         """
+        if self.mock:
+            return super().top_askbid(symbol)   # call mock function if self.mock
         try:
             res = self.future_client.book_ticker(symbol=symbol)
             return [AskBid(ap=res['askPrice'],
@@ -121,6 +123,8 @@ class BnUMFutureClient(BaseClient):
             "time": 1589437530011   // Transaction time
         }
         """
+        if self.mock:
+            return super().ticker(symbol)   # call mock function if self.mock
         try:
             res = self.future_client.ticker_price(symbol)
             return [Ticker(s=res['symbol'], p=res['price'], q="0")]
@@ -160,7 +164,8 @@ class BnUMFutureClient(BaseClient):
             "goodTillDate": 0      //order pre-set auot cancel time for TIF GTD order
         }
         """
-        
+        if self.mock:
+            return super().open_orders(symbol)   # call mock function if self.mock
         try:
             res = self.future_client.get_open_orders(symbol)
             _total_res = []
@@ -196,6 +201,8 @@ class BnUMFutureClient(BaseClient):
         selfTradePreventionMode	ENUM	NO	EXPIRE_TAKER:expire taker order when STP triggers/ EXPIRE_MAKER:expire taker order when STP triggers/ EXPIRE_BOTH:expire both orders when STP triggers; default NONE
         goodTillDate	LONG	NO	order cancel time for timeInForce GTD, mandatory when timeInforce set to GTD; order the timestamp only retains second-level precision, ms part will be ignored; The goodTillDate timestamp must be greater than the current time plus 600 seconds and smaller than 253402300799000        
         """
+        if self.mock:
+            return super().batch_make_orders(orders, symbol)   # call mock function if self.mock
         norm_symbol = self.norm_symbol(symbol)
         total_results = []
         for i in range(0, len(orders), BATCH_MAKE_SIZE):
@@ -238,6 +245,8 @@ class BnUMFutureClient(BaseClient):
         Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.
         timestamp	LONG	YES        
         """
+        if self.mock:
+            return super().batch_cancel(order_ids, symbol)   # call mock function if self.mock
         norm_symbol = self.norm_symbol(symbol)
         total_res = []
         for i in range(0, len(order_ids), BATCH_CANCEL_SIZE):
@@ -253,6 +262,10 @@ class BnUMFutureClient(BaseClient):
         return total_res
 
     def cancel_order(self, order_id: str, symbol: str = '') -> OrderID:
+        """ cancel order by order id
+        """
+        if self.mock:
+            return super().cancel_order(order_id, symbol)   # call mock function if self.mock
         norm_symbol = self.norm_symbol(symbol)
         _params = {"orderId" : int(order_id), "timestamp" : int(time.time()*1000)}
         try:
@@ -265,6 +278,8 @@ class BnUMFutureClient(BaseClient):
     def order_status(self, order_id: str, symbol: str = '') -> list[OrderStatus]:
         """ order status
         """
+        if self.mock:
+            return super().order_status(order_id, symbol)   # call mock function if self.mock
         _params = {"orderId":int(order_id)}
         try:     
             res = self.future_client.order_status(**_params)

@@ -53,6 +53,7 @@ class OkxFutureClient(OkxSpotClient):
         self.account_api.set_position_mode(posMode="net_mode")
         self.account_api.set_leverage(lever="1", mgnMode="isolated")
         self.contract_config={}
+        self.mock = False   # use mock functions for test
         
     def batch_make_orders(self, orders: list[NewOrder], symbol: str = '') -> list[OrderID]:
         """ Place multiple future orders:
@@ -73,13 +74,13 @@ class OkxFutureClient(OkxSpotClient):
         
         - Set position mode
         https://www.okx.com/docs-v5/zh/#trading-account-rest-api-set-position-mode
-        
         - 
-        
         px
         For option orders, the order price must be an integer multiple of tickSz. Non-integers will be rounded.
-        
         """
+        if self.mock:
+            return super().batch_make_orders(orders, symbol)    # mock for test
+
         norm_symbol = self._norm_symbol(symbol)
         if not self.contract_config.get(norm_symbol):
             _info = self.instrument_info(norm_symbol)
@@ -124,35 +125,47 @@ class OkxFutureClient(OkxSpotClient):
         """
         * symbol like: "BTC-USD-SWAP"
         """
+        if self.mock:
+            return super().batch_cancel(order_ids, symbol)  # mock for test
         return super().batch_cancel(order_ids, symbol)
     
     def cancel_order(self, order_id: str, symbol: str = '') -> OrderID:
         """
         * symbol like: "BTC-USD-SWAP"
         """
+        if self.mock:
+            return super().cancel_order(order_id, symbol)  # mock for test
         return super().cancel_order(order_id, symbol)
     
     def order_status(self, order_id: str, symbol: str = '') -> list[OrderStatus]:
         """
         * symbol like: "BTC-USD-SWAP"
         """
+        if self.mock:
+            return super().order_status(order_id, symbol)  # mock for test
         return super().order_status(order_id, symbol)
     
     def top_askbid(self, symbol: str) -> list[AskBid]:
         """ Ask1 and Bid1 data
         * symbol like: "BTC-USD-SWAP"
         """
+        if self.mock:
+            return super().top_askbid(symbol)  # mock for test
         return super().top_askbid(symbol)
     
     def ticker(self, symbol: str) -> list[Ticker]:
         """ Ticker of a single symbol
         * symbol like: "BTC-USD-SWAP"
         """
+        if self.mock:
+            return super().ticker(symbol)  # mock for test
         return super().ticker(symbol)
     
     def open_orders(self, symbol: str) -> list[OrderStatus]:
         """ List open orders
         """
+        if self.mock:
+            return super().open_orders(symbol)  # mock for test
         okx_res = self.trade_api.get_order_list(instType='SWAP', instId=self._norm_symbol(symbol))
         if okx_res["code"] =='0'and okx_res.get("data"):
             return [OrderStatus(

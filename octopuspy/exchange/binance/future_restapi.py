@@ -116,6 +116,8 @@ class BnFutureClient(BaseClient):
                 "time": 1589437530011   // Transaction time
             }            
         """
+        if self.mock:
+            return super().top_askbid(symbol)   # call mock function if self.mock
         try:
             res = self.future_client.book_ticker(symbol=symbol)
             return [AskBid(ap=res['askPrice'],
@@ -135,6 +137,8 @@ class BnFutureClient(BaseClient):
             "time": 1589437530011   // Transaction time
         }
         """
+        if self.mock:
+            return super().ticker(symbol)   # call mock function if self.mock
         try:
             res = self.future_client.ticker_price(symbol)
             return [Ticker(s=res['symbol'], p=res['price'], q="0")]
@@ -176,6 +180,8 @@ class BnFutureClient(BaseClient):
             "priceMatch": "NONE"            
         }
         """
+        if self.mock:
+            return super().open_orders(symbol)   # call mock function if self.mock
         norm_symbol = self.norm_symbol(symbol)
         try:
             payload = {"symbol" : norm_symbol, "timestamp" : int(time.time()*1000)}
@@ -216,6 +222,8 @@ class BnFutureClient(BaseClient):
         recvWindow	LONG	NO	
         timestamp	LONG	YES
         """
+        if self.mock:
+            return super().batch_make_orders(orders, symbol)   # call mock function if self.mock
         norm_symbol = self.norm_symbol(symbol)
         total_results = []
         for order in orders:
@@ -242,6 +250,8 @@ class BnFutureClient(BaseClient):
     def batch_cancel(self, order_ids: list, symbol: str = '') -> list[OrderID]:
         """ Portfolio batch cancel um orders
         """
+        if self.mock:
+            return super().batch_cancel(order_ids, symbol)   # call mock function if self.mock
         total_res = []
         norm_symbol = self.norm_symbol(symbol)
         res = None
@@ -261,6 +271,8 @@ class BnFutureClient(BaseClient):
         recvWindow	LONG	NO	
         timestamp	LONG	YES	        
         """
+        if self.mock:
+            return super().cancel_order(order_id, symbol)   # call mock function if self.mock
         norm_symbol = self.norm_symbol(symbol)
         _params = {"symbol" : norm_symbol, "orderId" : int(order_id), "timestamp" : int(time.time()*1000)}
         try:
@@ -304,6 +316,8 @@ class BnFutureClient(BaseClient):
             "priceMatch": "NONE"  
         }   
         """
+        if self.mock:
+            return super().order_status(order_id, symbol)   # call mock function if self.mock
         norm_symbol = self.norm_symbol(symbol)
         _params = {"symbol" : norm_symbol, "orderId":int(order_id), "timestamp" : int(time.time()*1000)}
         try:     

@@ -64,6 +64,8 @@ class BifuSpotClient(BaseClient):
 
     def top_askbid(self, symbol: str) -> list[AskBid]:
         """ limit must be 15 or 200"""
+        if self.mock:
+            return super().top_askbid(symbol)   # call mock function if self.mock
         res = self.order_book(symbol, limit=15)
         try:
             top_ask = res['asks'][0]
@@ -129,6 +131,8 @@ class BifuSpotClient(BaseClient):
             'responseTime': '1764934994050', 'traceId': 'c68e1c8d66871cebee61ba8b68110009'
         }
         """
+        if self.mock:
+            return super().ticker(symbol)   # call mock function if self.mock
         path = f'/api/v1/public/quote/getTicker?instrumentId={symbol}'
         res = requests.get(url=f'{self.base_url}{path}', timeout=5).json()
         if res.get('code') == 'SUCCESS' and res.get('data'):
@@ -242,6 +246,8 @@ class BifuSpotClient(BaseClient):
                 }
             ]
         """
+        if self.mock:
+            return super().open_orders(symbol)   # call mock function if self.mock
         path = '/api/v1/private/spot/order/getActiveOrderPage2'
         headers = self._sign(path=path)
         open_orders = []
@@ -280,6 +286,8 @@ class BifuSpotClient(BaseClient):
                 }, 'msg': None, 'params': None, 'requestTime': '1754580264285', 'responseTime': '1754580264297', 'traceId': '3e941956077878c6f6f87ecf041fa768'
             }
         """
+        if self.mock:
+            return super().batch_make_orders(orders, symbol)   # call mock function if self.mock
         path='/api/v1/private/spot/order/createOrderBatch'
         if len(orders) <= BATCH_SIZE:
             body = {
@@ -370,6 +378,8 @@ class BifuSpotClient(BaseClient):
             'traceId': '0e64bc96b739ae8bb72aac63adf1005a'
         }
         """
+        if self.mock:
+            return super().batch_cancel(order_ids, symbol)   # call mock function if self.mock
         path = '/api/v1/private/spot/order/cancelOrderById'
         if len(order_ids) <= BATCH_SIZE:
             body = {'orderIdList': order_ids}
@@ -408,6 +418,8 @@ class BifuSpotClient(BaseClient):
                 'responseTime': '1754579970261', 'traceId': '6aaa474859fd5f61a0a0043361475783'
             }
         """
+        if self.mock:
+            return super().cancel_order(order_id, symbol)   # call mock function if self.mock
         res = self.batch_cancel([order_id], symbol)
         if res:
             return res[0]
@@ -470,6 +482,8 @@ class BifuSpotClient(BaseClient):
             'traceId': '835e34b15e345a12107cc3ba330ba2f2'
         }
         """
+        if self.mock:
+            return super().order_status(order_id, symbol)   # call mock function if self.mock
         path = '/api/v1/private/spot/order/getOrderById'
         query = f"orderIdList={order_id}"
         headers = self._sign(path=path)
