@@ -14,9 +14,9 @@ from octopuspy import BifuFutureClient, ClientParams
 from test_env import BASE_URL, API_KEY, SECRET
 from tests.exchange_unittest import ExchangeTest
 
-SYMBOL = "BNBUSDT"
+SYMBOL = "90000005"
 
-class BifuFutureExchangeTest(BifuFutureClient):
+class BifuFutureExchangeTest(ExchangeTest):
     def setUp(self):
         super().setUp(symbol=SYMBOL, price_decimal=2, qty_decimal=3)
         params = ClientParams(base_url=BASE_URL, api_key=API_KEY, secret=SECRET, passphrase="")
