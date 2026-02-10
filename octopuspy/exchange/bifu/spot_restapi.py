@@ -36,7 +36,7 @@ class BIFU_ORDER_STATE_CONSTANTS(ORDER_STATE_CONSTANTS):
         return cls.UNKNOWN
 
 BIFU_BASE_URL = "https://api.bifu.co"
-BIFU_TEST_URL = "https://api.bifu.internal"
+BIFU_TEST_URL = "http://api.bifu.internal"
 
 class BifuSpotClient(BaseClient):
     """ Restful API Client for Spot Trading of BiFu
