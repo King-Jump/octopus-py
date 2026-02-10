@@ -14,7 +14,7 @@ from octopuspy import BifuSpotClient, ClientParams
 from test_env import BASE_URL, API_KEY, SECRET
 from tests.exchange_unittest import ExchangeTest
 
-SYMBOL = "BNBUSDT"
+SYMBOL = "90000005"
 
 class BifuExchangeTest(ExchangeTest):
     def setUp(self):
