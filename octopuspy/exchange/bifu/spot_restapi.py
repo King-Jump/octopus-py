@@ -136,7 +136,11 @@ class BifuSpotClient(BaseClient):
         if self.mock:
             return super().ticker(symbol)   # call mock function if self.mock
         path = f'/api/v1/public/quote/getTicker?instrumentId={symbol}'
-        res = requests.get(url=f'{self.base_url}{path}', timeout=5).json()
+        try:
+            res = requests.get(url=f'{self.base_url}{path}', timeout=5).json()
+        except requests.exceptions.RequestException:
+            self.logger.error('ticker request %s failed', path)
+            return []
         if res.get('code') == 'SUCCESS' and res.get('data'):
             return [Ticker(s=symbol, p=res['data'][0]['lastPrice'], q=res['data'][0]['size'])]
         return []
