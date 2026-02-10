@@ -20,7 +20,7 @@ class BifuFutureExchangeTest(ExchangeTest):
     def setUp(self):
         super().setUp(symbol=SYMBOL, price_decimal=2, qty_decimal=3)
         params = ClientParams(base_url=BASE_URL, api_key=API_KEY, secret=SECRET, passphrase="")
-        self.client = BifuSpotClient(params, LOGGER)
+        self.client = BifuFutureClient(params, LOGGER)
         
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(BifuFutureExchangeTest)
