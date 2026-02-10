@@ -375,6 +375,7 @@ class BifuFutureClient(BaseClient):
                     if order_id:
                         suc_orders.append(OrderID(order_id=str(order_id),
                                           client_id=item.get('clientOrderId', '')))
+            self.logger("bifu server response: %s", res)
             return suc_orders
 
         total_results = []
