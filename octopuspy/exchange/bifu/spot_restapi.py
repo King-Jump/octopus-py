@@ -109,7 +109,11 @@ class BifuSpotClient(BaseClient):
         }
         """
         path = f'/api/v1/public/quote/getDepth?instrumentId={symbol}&level={limit}'
-        res = self._get(path).json()
+        try:
+            res = self._get(path).json()
+        except requests.exceptions.RequestException:
+            self.logger.error('order_book request %s failed', path)
+            return {'asks': [], 'bids': []}
         if res.get('code') == 'SUCCESS' and res.get('data'):
             return {
                 'asks': [(ask['price'], ask['size']) for ask in res['data'][0]['asks']],
