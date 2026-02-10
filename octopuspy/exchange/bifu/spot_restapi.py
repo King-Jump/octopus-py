@@ -35,6 +35,8 @@ class BIFU_ORDER_STATE_CONSTANTS(ORDER_STATE_CONSTANTS):
             return cls.EXPIRED
         return cls.UNKNOWN
 
+BIFU_BASE_URL = "https://api.bifu.co"
+BIFU_TEST_URL = "https://api.bifu.internal"
 
 class BifuSpotClient(BaseClient):
     """ Restful API Client for Spot Trading of BiFu
@@ -43,7 +45,7 @@ class BifuSpotClient(BaseClient):
         """ https://api.bifu.co """
         super().__init__(params, logger)
         if not self.base_url:
-            self.base_url = "https://api.bifu.co" # default
+            self.base_url = BIFU_TEST_URL # default
     
     def _sign(self, path):
         ts = int(1000 * time.time())
