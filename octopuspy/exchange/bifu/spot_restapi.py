@@ -320,8 +320,12 @@ class BifuSpotClient(BaseClient):
             }
 
             headers = self._sign(path=path)
-            res = requests.post(url=f'{self.base_url}{path}', json=body,
-                headers=headers, timeout=5).json()
+            try:
+                res = requests.post(url=f'{self.base_url}{path}', json=body,
+                    headers=headers, timeout=5).json()
+            except requests.exceptions.RequestException as e:
+                self.logger.error(f"Request failed: {e}")
+                return []
             suc_orders = []
             if res and res['data'] and res['data']['list']:
                 for item in res['data']['list']:
@@ -357,8 +361,12 @@ class BifuSpotClient(BaseClient):
             }
 
             headers = self._sign(path=path)
-            res = requests.post(url=f'{self.base_url}{path}', json=body,
-                headers=headers, timeout=5).json()
+            try:
+                res = requests.post(url=f'{self.base_url}{path}', json=body,
+                    headers=headers, timeout=5).json()
+            except requests.exceptions.RequestException as e:
+                self.logger.error(f"Request failed: {e}")
+                continue
             if res and res['data'] and res['data']['list']:
                 for item in res['data']['list']:
                     order_id = item.get('successOrderId')
