@@ -229,9 +229,9 @@ class ExchangeFutureTest(ColorfulTestCase):
         orders = []
         for i in range(self.order_pairs):
             o1 = NewOrder(self.symbol, f'10N_{ts+i*2}S1', 'BUY', 'LIMIT', round(20/last_price*1.2, self.qty_decimal), round(last_price/1.2, self.price_decimal),
-                        self.biz_type, 'gtx', reduce_only=False, position_side='', bait=False, selftrade_enabled=False)
+                        self.biz_type, 'gtx', '')
             o2 = NewOrder(self.symbol, f'10N_{ts+i*2+1}S2', 'SELL', 'LIMIT', round(20/last_price/1.2, self.qty_decimal), round(last_price*1.2, self.price_decimal),
-                        self.biz_type, 'ioc', reduce_only=False, position_side='', bait=False, selftrade_enabled=False)
+                        self.biz_type, 'ioc', '')
             orders.extend([o1, o2])
         print("orders: \n%s" % orders)
         res = self.client.batch_make_orders(orders, self.symbol)

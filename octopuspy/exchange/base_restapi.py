@@ -11,7 +11,7 @@ ClientParams = namedtuple('ClientParams', ['base_url', 'api_key', 'secret', 'pas
 
 # parameters for putting a new order
 NewOrder = namedtuple('NewOrder', ['symbol', 'client_id', 'side', 'type', 'quantity', 'price',
-        'biz_type', 'tif', 'reduce_only', 'position_side', 'bait', 'selftrade_enabled'])
+        'biz_type', 'tif', 'position_side'])
 
 
 # parameters for response of open orders
