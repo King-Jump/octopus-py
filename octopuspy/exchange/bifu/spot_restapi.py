@@ -327,6 +327,7 @@ class BifuSpotClient(BaseClient):
             try:
                 res = requests.post(url=f'{self.base_url}{path}', json=body,
                     headers=headers, timeout=5).json()
+                self.logger.debug("Client batch_make_orders response: %s", res)
             except requests.exceptions.RequestException as e:
                 self.logger.error(f"Request failed: {e}")
                 return []
