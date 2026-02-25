@@ -55,7 +55,7 @@ class BnSpotClient(BaseClient):
         super().__init__(params, logger=logger)
         # self.spot_client = Client(api_key=params.api_key, api_secret=params.secret,
         #                           base_url = "https://testnet.binance.vision/api")  # use test_net
-        self.spot_client = Client(api_key=params.api_key, api_secret=params.secret)  # use test_net
+        self.spot_client = Client(api_key=params.api_key, api_secret=params.secret)
 
     def tif_map(self, order_type:str, tif:str):
         if order_type == "LIMIT_MAKER":
