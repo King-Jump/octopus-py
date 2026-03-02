@@ -365,7 +365,7 @@ class BifuFutureClient(BaseClient):
                 } for order in orders]
             }
             headers = self._sign(path=path)
-            res = requests.post(url=f'{self.base_url}{path}', params=body,
+            res = requests.post(url=f'{self.base_url}{path}', json=body,
                 headers=headers, timeout=5).json()
             sub_orders = []
             if res and res['data'] and res['data']['list']:
