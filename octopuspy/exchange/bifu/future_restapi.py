@@ -344,7 +344,7 @@ class BifuFutureClient(BaseClient):
                     {'clientOrderId': '10N_1766324637520S2', 'successOrderId': '697616092503215801', 'errorDetail': {'code': None, 'msg': None}, 'success': True}
                 ]},
              'msg': None, 'params': None, 'requestTime': '1766324637531', 'responseTime': '1766324637535', 'traceId': 'ff680c2c4bc539cd7e9032fa9bb9ed1d'
-            }                    
+            }
         """
         if self.mock:
             return super().batch_make_orders(orders, symbol)   # call mock function if self.mock
@@ -359,24 +359,23 @@ class BifuFutureClient(BaseClient):
                     "orderSide": order.side,
                     "type": 'LIMIT',
                     "timeInForce": TIF_MAP.get(order.tif, 'GOOD_TIL_CANCEL'),
-                    "positionSide": "UNKNOWN_POSITION_SIDE",
+                    "positionSide": order.position_side,
                     "marginMode": "SHARED",
                     "separatedMode": "COMBINED",
                 } for order in orders]
             }
-
             headers = self._sign(path=path)
             res = requests.post(url=f'{self.base_url}{path}', json=body,
                 headers=headers, timeout=5).json()
-            suc_orders = []
+            sub_orders = []
             if res and res['data'] and res['data']['list']:
                 for item in res['data']['list']:
                     order_id = item.get('successOrderId')
                     if order_id:
-                        suc_orders.append(OrderID(order_id=str(order_id),
+                        sub_orders.append(OrderID(order_id=str(order_id),
                                           client_id=item.get('clientOrderId', '')))
             self.logger.debug("bifu server response: %s", res)
-            return suc_orders
+            return sub_orders
 
         total_results = []
         for start in range(0, len(orders), BATCH_SIZE):
@@ -389,7 +388,7 @@ class BifuFutureClient(BaseClient):
                     "orderSide": order.side,
                     "type": 'LIMIT',
                     "timeInForce": TIF_MAP.get(order.tif, 'GOOD_TIL_CANCEL'),
-                    "positionSide": "UNKNOWN_POSITION_SIDE",
+                    "positionSide": order.position_side,
                     "marginMode": "SHARED",
                     "separatedMode": "COMBINED",
                 } for order in orders]
