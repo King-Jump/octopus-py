@@ -346,8 +346,9 @@ class BifuFutureClient(BaseClient):
              'msg': None, 'params': None, 'requestTime': '1766324637531', 'responseTime': '1766324637535', 'traceId': 'ff680c2c4bc539cd7e9032fa9bb9ed1d'
             }
         """
+        # call mock function if self.mock
         if self.mock:
-            return super().batch_make_orders(orders, symbol)   # call mock function if self.mock
+            return super().batch_make_orders(orders, symbol)
         path='/api/v1/private/contract/order/createOrderBatch'
         if len(orders) <= BATCH_SIZE:
             body = {
