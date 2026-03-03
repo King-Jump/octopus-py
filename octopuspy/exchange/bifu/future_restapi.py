@@ -352,26 +352,16 @@ class BifuFutureClient(BaseClient):
         if len(orders) <= BATCH_SIZE:
             body = {
                 "params": [{
-                    "languageType": 0,
-                    "sign": '',
-                    "timeZone": "UTC+8",
                     "contractId": order.symbol,
-                    "orderSide": order.side,
-                    "price": str(order.price),
-                    "size": str(order.quantity),
                     "clientOrderId": order.client_id,
+                    "size": str(order.quantity),
+                    "price": str(order.price),
+                    "orderSide": order.side,
                     "type": 'LIMIT',
                     "timeInForce": TIF_MAP.get(order.tif, 'GOOD_TIL_CANCEL'),
                     "positionSide": order.position_side,
                     "marginMode": "SHARED",
                     "separatedMode": "COMBINED",
-                    "reduceOnly": False,
-                    "triggerPrice": "0.0",
-                    "positionTpsl": False,
-                    "setOpenTp": False,
-                    "setOpenSl": False,
-                    "extraType": "",
-                    "extraDataJson": ""
                 } for order in orders]
             }
             headers = self._sign(path=path)
@@ -391,26 +381,16 @@ class BifuFutureClient(BaseClient):
         for start in range(0, len(orders), BATCH_SIZE):
             body = {
                 "params": [{
-                    "languageType": 0,
-                    "sign": '',
-                    "timeZone": "UTC+8",
                     "contractId": order.symbol,
-                    "orderSide": order.side,
-                    "price": str(order.price),
-                    "size": str(order.quantity),
                     "clientOrderId": order.client_id,
+                    "size": str(order.quantity),
+                    "price": str(order.price),
+                    "orderSide": order.side,
                     "type": 'LIMIT',
                     "timeInForce": TIF_MAP.get(order.tif, 'GOOD_TIL_CANCEL'),
                     "positionSide": order.position_side,
                     "marginMode": "SHARED",
                     "separatedMode": "COMBINED",
-                    "reduceOnly": False,
-                    "triggerPrice": "0.0",
-                    "positionTpsl": False,
-                    "setOpenTp": False,
-                    "setOpenSl": False,
-                    "extraType": "",
-                    "extraDataJson": ""
                 } for order in orders]
             }
 
