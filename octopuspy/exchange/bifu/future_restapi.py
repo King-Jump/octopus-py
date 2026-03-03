@@ -385,7 +385,7 @@ class BifuFutureClient(BaseClient):
                     if order_id:
                         sub_orders.append(OrderID(order_id=str(order_id),
                                           client_id=item.get('clientOrderId', '')))
-            self.logger.debug("params: %s", params)
+            self.logger.debug("params: %s", body)
             self.logger.debug("bifu server response: %s", res)
             self.logger.debug("host: %s", self.base_url)
             return sub_orders
