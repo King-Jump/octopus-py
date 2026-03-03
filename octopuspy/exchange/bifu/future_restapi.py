@@ -386,6 +386,7 @@ class BifuFutureClient(BaseClient):
                         sub_orders.append(OrderID(order_id=str(order_id),
                                           client_id=item.get('clientOrderId', '')))
             self.logger.debug("bifu server response: %s", res)
+            self.logger.debug("host: %s", self.base_url)
             return sub_orders
 
         total_results = []
